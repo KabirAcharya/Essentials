@@ -3,3 +3,21 @@
 [homes]
 # Maximum number of homes per player
 max-homes = 5
+
+[chat]
+# Enable custom chat formatting
+enabled = true
+
+# Fallback format for players without a configured rank
+# Placeholders: %player% = player name, %message% = chat message
+# Color codes: &0-&9, &a-&f (hex colors like &#FF5555 also supported)
+fallback-format = "&0[&fPlayer&0] &f%player%: %message%"
+
+# Chat formats per permission group/rank
+# The first matching group (in order listed) will be used
+# Group names are defined in your `permissions.json` file
+# Group names should match your permission groups exactly
+[chat.formats]
+OP = "&0[&cAdmin&0] &c%player%&f: %message%"
+Adventure = "&0[&fPlayer&0] &f%player%: %message%"
+Default = "&0[&fPlayer&0] &f%player%: %message%"

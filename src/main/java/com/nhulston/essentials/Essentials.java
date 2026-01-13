@@ -10,6 +10,8 @@ import com.nhulston.essentials.commands.spawn.SpawnCommand;
 import com.nhulston.essentials.commands.warp.DelWarpCommand;
 import com.nhulston.essentials.commands.warp.SetWarpCommand;
 import com.nhulston.essentials.commands.warp.WarpCommand;
+import com.nhulston.essentials.events.ChatEvent;
+import com.nhulston.essentials.managers.ChatManager;
 import com.nhulston.essentials.managers.HomeManager;
 import com.nhulston.essentials.managers.SpawnManager;
 import com.nhulston.essentials.managers.WarpManager;
@@ -25,6 +27,7 @@ public class Essentials extends JavaPlugin {
     private HomeManager homeManager;
     private WarpManager warpManager;
     private SpawnManager spawnManager;
+    private ChatManager chatManager;
 
     public Essentials(@Nonnull JavaPluginInit init) {
         super(init);
@@ -41,11 +44,13 @@ public class Essentials extends JavaPlugin {
         homeManager = new HomeManager(storageManager, configManager);
         warpManager = new WarpManager(storageManager);
         spawnManager = new SpawnManager(storageManager);
+        chatManager = new ChatManager(configManager);
     }
 
     @Override
     protected void start() {
         registerCommands();
+        registerEvents();
         Log.info("Essentials started successfully!");
     }
 
@@ -74,5 +79,9 @@ public class Essentials extends JavaPlugin {
         // Spawn commands
         getCommandRegistry().registerCommand(new SetSpawnCommand(spawnManager));
         getCommandRegistry().registerCommand(new SpawnCommand(spawnManager));
+    }
+
+    private void registerEvents() {
+        new ChatEvent(chatManager).register(getEventRegistry());
     }
 }
