@@ -188,7 +188,14 @@ public class KitPage extends InteractiveCustomUIPage<KitPage.KitPageData> {
                     return null;
                 }
             }
-            // Slot occupied or invalid, add anywhere in container
+            // Slot occupied or invalid - for armor/utility/tools, fall back to hotbar/storage
+            // (these containers don't support arbitrary item placement like hotbar/storage do)
+            String section = kitItem.section().toLowerCase();
+            if (section.equals("armor") || section.equals("utility") || section.equals("tools")) {
+                ItemStackTransaction transaction = inventory.getCombinedHotbarFirst().addItemStack(itemStack);
+                return transaction.getRemainder();
+            }
+            // For hotbar/storage, try adding anywhere in that container
             ItemStackTransaction transaction = container.addItemStack(itemStack);
             return transaction.getRemainder();
         } else {
