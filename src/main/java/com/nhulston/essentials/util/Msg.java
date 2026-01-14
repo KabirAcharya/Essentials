@@ -18,6 +18,10 @@ public final class Msg {
         context.sendMessage(Message.raw(message).color(SUCCESS_COLOR));
     }
 
+    public static void info(@Nonnull CommandContext context, @Nonnull String message) {
+        context.sendMessage(Message.raw(message).color(INFO_COLOR));
+    }
+
     public static void fail(@Nonnull CommandContext context, @Nonnull String message) {
         context.sendMessage(Message.raw(message).color(FAIL_COLOR));
     }

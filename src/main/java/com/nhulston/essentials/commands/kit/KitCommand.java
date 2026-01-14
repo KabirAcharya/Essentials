@@ -9,18 +9,29 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.nhulston.essentials.gui.KitPage;
+import com.nhulston.essentials.managers.KitManager;
 import com.nhulston.essentials.util.Msg;
 
 import javax.annotation.Nonnull;
 
 /**
  * Command to open the kit selection GUI.
- * Usage: /kit
+ * Usage: /kit - Opens kit GUI
+ * Usage: /kit create <name> - Creates a kit from current inventory
+ * Usage: /kit delete <name> - Deletes a kit
  */
 public class KitCommand extends AbstractPlayerCommand {
+    private final KitManager kitManager;
 
-    public KitCommand() {
+    public KitCommand(@Nonnull KitManager kitManager) {
         super("kit", "Open the kit selection menu");
+        this.kitManager = kitManager;
+
+        requirePermission("essentials.kit");
+        
+        // Add subcommands
+        addSubCommand(new KitCreateCommand(kitManager));
+        addSubCommand(new KitDeleteCommand(kitManager));
     }
 
     @Override
@@ -34,7 +45,7 @@ public class KitCommand extends AbstractPlayerCommand {
         }
 
         // Create and open the kit selection page
-        KitPage kitPage = new KitPage(playerRef);
+        KitPage kitPage = new KitPage(playerRef, kitManager);
         player.getPageManager().openCustomPage(ref, store, kitPage);
     }
 }

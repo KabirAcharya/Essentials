@@ -1,37 +1,28 @@
 $C = "../Common.ui";
-
 Button {
-  LayoutMode: Left;
-  Anchor: (Left: 2, Right: 2, Bottom: 5, Height: 65);
+  LayoutMode: Top;
+  Anchor: (Left: 2, Right: 2, Bottom: 5, Height: 60, Width: 400);
   Background: $C.@InputBoxBackground;
-  Padding: (Left: 12, Right: 12, Top: 8, Bottom: 8);
+  Padding: (Top: 8, Bottom: 8);
   Style: ButtonStyle(
-    Sounds: $C.@ButtonSounds
+    Sounds: $C.@ButtonSounds,
   );
 
-  ItemIcon #Icon {
-    Anchor: (Width: 48, Height: 48);
-    Margin: (Right: 16);
+  Label #Name {
+    Style: (
+      FontSize: 16,
+      RenderBold: true,
+      TextColor: #93844c,
+      HorizontalAlignment: Center
+    );
   }
 
-  Group {
-    FlexWeight: 1;
-    LayoutMode: Top;
-
-    Label #Name {
-      Style: (
-        FontSize: 18,
-        RenderBold: true,
-        TextColor: #ffffff
-      );
-    }
-
-    Label #Description {
-      Anchor: (Top: 4);
-      Style: (
-        FontSize: 13,
-        TextColor: #96a9be
-      );
-    }
+  Label #Status {
+    Style: (
+      FontSize: 12,
+      TextColor: #96a9be,
+      HorizontalAlignment: Center
+    );
+    Anchor: (Top: 4);
   }
 }
