@@ -3,6 +3,7 @@ package com.nhulston.essentials;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.nhulston.essentials.commands.back.BackCommand;
+import com.nhulston.essentials.commands.heal.HealCommand;
 import com.nhulston.essentials.commands.home.DelHomeCommand;
 import com.nhulston.essentials.commands.home.HomeCommand;
 import com.nhulston.essentials.commands.home.SetHomeCommand;
@@ -142,6 +143,9 @@ public class Essentials extends JavaPlugin {
 
         // List command
         getCommandRegistry().registerCommand(new ListCommand());
+
+        // Heal command
+        getCommandRegistry().registerCommand(new HealCommand());
     }
 
     private void registerEvents() {

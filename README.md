@@ -40,6 +40,8 @@ Essentials is an all-in-one utility plugin for Hytale server administrators.
 | <code>/kit delete</code> | Delete a kit                     | <code>essentials.kit.delete</code> |
 | <code>/back</code>       | Teleport to your last death      | <code>essentials.back</code>       |
 | <code>/rtp</code>        | Random teleport                  | <code>essentials.rtp</code>        |
+| <code>/list</code>       | List online players              | <code>essentials.list</code>       |
+| <code>/heal</code>       | Restore your health to full      | <code>essentials.heal</code>       |
 
 # Permissions
 
@@ -73,61 +75,12 @@ If you have a permissions mod, follow the instructions for that mod.
 | <code>essentials.back</code>                | Teleport to last death location                                                             |
 | <code>essentials.rtp</code>                 | Random teleport                                                                             |
 | <code>essentials.rtp.cooldown.bypass</code> | Bypass RTP cooldown                                                                         |
+| <code>essentials.list</code>                | List online players                                                                         |
+| <code>essentials.heal</code>                | Restore health to full                                                                      |
 
 # Configuration
 
-Configuration is stored in `config.toml`. Key options:
-
-**Homes**
-
-*   `homes.max-homes` - Max homes per player (default: 5)
-
-**Chat**
-
-*   `chat.enabled` - Enable custom chat formatting
-*   `chat.fallback-format` - Format for players without a rank
-*   `chat.formats.<group>` - Format per permission group
-*   Placeholders: `%player%`, `%message%`
-*   Color codes: `&0-&9`, `&a-&f`, `&#RRGGBB`
-
-**Build Protection**
-
-*   `build.disable-building` - Disable building globally (bypass: `essentials.build.bypass`)
-
-**Teleport**
-
-*   `teleport.delay` - Delay in seconds before teleporting (default: 3, set to 0 to disable)
-
-Players must stand still during the delay or the teleport is canceled. Players with `essentials.teleport.bypass` skip the delay.
-
-**Spawn**
-
-*   `spawn.first-join` - Teleport to spawn on first join (default: true)
-*   `spawn.every-join` - Teleport to spawn on every join (default: false)
-*   `spawn.death-spawn` - Teleport to spawn on death (default: true)
-
-**Spawn Protection**
-
-*   `spawn-protection.enabled` - Enable spawn area protection
-*   `spawn-protection.radius` - Protection radius in blocks (default: 16)
-*   `spawn-protection.min-y` / `max-y` - Y range limit (-1 to disable)
-*   `spawn-protection.invulnerable` - Make players invulnerable (immune to all damage) in spawn
-*   `spawn-protection.show-titles` - Show enter/exit titles
-*   `spawn-protection.enter-title` / `enter-subtitle` - Title on enter
-*   `spawn-protection.exit-title` / `exit-subtitle` - Title on exit
-
-**MOTD (Message of the Day)**
-
-*   `motd.enabled` - Show message on player join (default: true)
-*   `motd.message` - Message to show (supports multi-line with triple quotes)
-*   Placeholders: `%player%`
-*   Color codes: `&0-&9`, `&a-&f`, `&#RRGGBB`
-
-**Random Teleport (RTP)**
-
-*   `rtp.world` - World to teleport to (default: "default")
-*   `rtp.radius` - Maximum radius from 0,0 for random location (default: 5000)
-*   `rtp.cooldown` - Cooldown in seconds between uses (default: 300)
+Configuration is stored in `config.toml`.
 
 **Kits**
 
