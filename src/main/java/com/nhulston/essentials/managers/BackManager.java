@@ -30,6 +30,13 @@ public class BackManager {
     }
 
     /**
+     * Cleans up death location for a player when they disconnect.
+     */
+    public void onPlayerQuit(@Nonnull UUID playerUuid) {
+        deathLocations.remove(playerUuid);
+    }
+
+    /**
      * Stores death location data.
      */
     public static class DeathLocation {

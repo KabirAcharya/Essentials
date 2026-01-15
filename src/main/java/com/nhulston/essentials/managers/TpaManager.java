@@ -125,6 +125,32 @@ public class TpaManager {
     }
 
     /**
+     * Cleans up all requests involving a player (both as requester and target).
+     * Call this when a player disconnects.
+     */
+    public void onPlayerQuit(@Nonnull UUID playerUuid) {
+        // Remove all requests where this player is the target
+        ConcurrentHashMap<UUID, TpaRequest> targetRequests = pendingRequests.remove(playerUuid);
+        if (targetRequests != null) {
+            // Cancel all expiration futures
+            for (TpaRequest request : targetRequests.values()) {
+                request.cancel();
+            }
+        }
+
+        // Remove all requests where this player is the requester
+        for (ConcurrentHashMap<UUID, TpaRequest> requests : pendingRequests.values()) {
+            TpaRequest request = requests.remove(playerUuid);
+            if (request != null) {
+                request.cancel();
+            }
+        }
+
+        // Clean up any empty maps
+        pendingRequests.entrySet().removeIf(entry -> entry.getValue().isEmpty());
+    }
+
+    /**
      * Shuts down the manager and cancels all pending requests.
      */
     public void shutdown() {

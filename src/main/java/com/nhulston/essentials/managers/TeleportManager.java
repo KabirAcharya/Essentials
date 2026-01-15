@@ -188,6 +188,13 @@ public class TeleportManager {
     }
 
     /**
+     * Cleans up pending teleport for a player when they disconnect.
+     */
+    public void onPlayerQuit(@Nonnull UUID playerUuid) {
+        pendingTeleports.remove(playerUuid);
+    }
+
+    /**
      * Shuts down the manager.
      */
     public void shutdown() {

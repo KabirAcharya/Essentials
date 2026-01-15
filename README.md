@@ -14,6 +14,8 @@ Essentials is an all-in-one utility plugin for Hytale server administrators.
 *   Random teleport
 *   /back on death
 *   Sleep percentage
+*   Private messaging
+*   Other useful commands: /list, /heal, /freecam, /god, /tphere, /top
 
 ![Homes](https://raw.githubusercontent.com/nhulston/Essentials/refs/heads/main/images/homes.png) ![TPA](https://raw.githubusercontent.com/nhulston/Essentials/refs/heads/main/images/tpa.png) ![Warps](https://raw.githubusercontent.com/nhulston/Essentials/refs/heads/main/images/warps.png)
 

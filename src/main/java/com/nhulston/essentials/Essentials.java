@@ -27,6 +27,7 @@ import com.nhulston.essentials.events.BuildProtectionEvent;
 import com.nhulston.essentials.events.ChatEvent;
 import com.nhulston.essentials.events.DeathLocationEvent;
 import com.nhulston.essentials.events.MotdEvent;
+import com.nhulston.essentials.events.PlayerQuitEvent;
 import com.nhulston.essentials.events.SpawnProtectionEvent;
 import com.nhulston.essentials.events.SpawnRegionTitleEvent;
 import com.nhulston.essentials.events.SpawnTeleportEvent;
@@ -194,5 +195,8 @@ public class Essentials extends JavaPlugin {
 
         // Sleep percentage system
         new SleepPercentageEvent(configManager).register(getEntityStoreRegistry());
+
+        // Player disconnect cleanup
+        new PlayerQuitEvent(storageManager, tpaManager, teleportManager, backManager).register(getEventRegistry());
     }
 }

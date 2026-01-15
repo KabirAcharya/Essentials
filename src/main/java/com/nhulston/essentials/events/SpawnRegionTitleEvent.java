@@ -22,6 +22,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SpawnRegionTitleEvent {
     private final SpawnProtectionManager spawnProtectionManager;
     private final ConfigManager configManager;
+    
+    // Static reference for cleanup access
+    private static final Map<UUID, Boolean> playerInSpawn = new ConcurrentHashMap<>();
 
     public SpawnRegionTitleEvent(@Nonnull SpawnProtectionManager spawnProtectionManager, 
                                   @Nonnull ConfigManager configManager) {
@@ -39,12 +42,18 @@ public class SpawnRegionTitleEvent {
     }
 
     /**
+     * Clean up player data when they disconnect.
+     */
+    public static void onPlayerQuit(UUID uuid) {
+        playerInSpawn.remove(uuid);
+    }
+
+    /**
      * Ticking system that detects when players enter/exit spawn area and shows titles.
      */
     private static class SpawnRegionTitleSystem extends EntityTickingSystem<EntityStore> {
         private final SpawnProtectionManager manager;
         private final ConfigManager config;
-        private final Map<UUID, Boolean> playerInSpawn = new ConcurrentHashMap<>();
 
         SpawnRegionTitleSystem(SpawnProtectionManager manager, ConfigManager config) {
             this.manager = manager;
@@ -104,14 +113,6 @@ public class SpawnRegionTitleEvent {
             }
 
             playerInSpawn.put(uuid, isInSpawn);
-        }
-
-        /**
-         * Clean up player data when they disconnect.
-         * Called via SpawnProtectionManager when player leaves.
-         */
-        public void removePlayer(UUID uuid) {
-            playerInSpawn.remove(uuid);
         }
     }
 }

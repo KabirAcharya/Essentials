@@ -29,9 +29,10 @@ public class RtpCommand extends AbstractPlayerCommand {
     private static final int MAX_ATTEMPTS = 5;
     private static final String COOLDOWN_BYPASS_PERMISSION = "essentials.rtp.cooldown.bypass";
 
+    private static final Map<UUID, Long> cooldowns = new ConcurrentHashMap<>();
+
     private final ConfigManager configManager;
     private final TeleportManager teleportManager;
-    private final Map<UUID, Long> cooldowns = new ConcurrentHashMap<>();
 
     public RtpCommand(@Nonnull ConfigManager configManager, @Nonnull TeleportManager teleportManager) {
         super("rtp", "Randomly teleport to a location");
@@ -99,5 +100,12 @@ public class RtpCommand extends AbstractPlayerCommand {
 
         // All attempts failed
         Msg.fail(context, "Could not find a safe location after " + MAX_ATTEMPTS + " attempts. Try again.");
+    }
+
+    /**
+     * Cleans up cooldown for a player when they disconnect.
+     */
+    public static void onPlayerQuit(UUID playerUuid) {
+        cooldowns.remove(playerUuid);
     }
 }
