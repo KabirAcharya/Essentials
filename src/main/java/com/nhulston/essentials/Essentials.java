@@ -4,6 +4,7 @@ import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.nhulston.essentials.commands.back.BackCommand;
 import com.nhulston.essentials.commands.freecam.FreecamCommand;
+import com.nhulston.essentials.commands.god.GodCommand;
 import com.nhulston.essentials.commands.heal.HealCommand;
 import com.nhulston.essentials.commands.home.DelHomeCommand;
 import com.nhulston.essentials.commands.home.HomeCommand;
@@ -152,6 +153,9 @@ public class Essentials extends JavaPlugin {
 
         // Freecam command
         getCommandRegistry().registerCommand(new FreecamCommand());
+
+        // God command
+        getCommandRegistry().registerCommand(new GodCommand());
 
         // Msg command (with aliases: m, message, whisper, pm)
         getCommandRegistry().registerCommand(new MsgCommand());
