@@ -7,6 +7,7 @@ import com.nhulston.essentials.commands.home.DelHomeCommand;
 import com.nhulston.essentials.commands.home.HomeCommand;
 import com.nhulston.essentials.commands.home.SetHomeCommand;
 import com.nhulston.essentials.commands.kit.KitCommand;
+import com.nhulston.essentials.commands.list.ListCommand;
 import com.nhulston.essentials.commands.rtp.RtpCommand;
 import com.nhulston.essentials.commands.spawn.SetSpawnCommand;
 import com.nhulston.essentials.commands.spawn.SpawnCommand;
@@ -138,6 +139,9 @@ public class Essentials extends JavaPlugin {
 
         // RTP command
         getCommandRegistry().registerCommand(new RtpCommand(configManager, teleportManager));
+
+        // List command
+        getCommandRegistry().registerCommand(new ListCommand());
     }
 
     private void registerEvents() {
