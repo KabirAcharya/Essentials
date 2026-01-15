@@ -45,6 +45,15 @@ every-join = false
 # Teleport players to spawn on death
 death-spawn = true
 
+[welcome-broadcast]
+# Broadcast a message to all players when someone joins for the first time
+enabled = true
+
+# Message to broadcast
+# Placeholders: %player% = player name
+# Color codes: &0-&9, &a-&f (hex colors like &#FF5555 also supported)
+message = "&e%player% &6has joined the server for the first time!"
+
 [spawn-protection]
 # This section requires a spawn to be set with /setspawn
 

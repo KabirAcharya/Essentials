@@ -49,6 +49,10 @@ public class ConfigManager {
     private boolean everyJoinSpawnEnabled = false;
     private boolean deathSpawnEnabled = true;
 
+    // Welcome broadcast settings
+    private boolean welcomeBroadcastEnabled = true;
+    private String welcomeBroadcastMessage = "&e%player% &6has joined the server for the first time!";
+
     // Teleport settings
     private int teleportDelay = DEFAULT_TELEPORT_DELAY;
 
@@ -136,6 +140,11 @@ public class ConfigManager {
             firstJoinSpawnEnabled = config.getBoolean("spawn.first-join", () -> true);
             everyJoinSpawnEnabled = config.getBoolean("spawn.every-join", () -> false);
             deathSpawnEnabled = config.getBoolean("spawn.death-spawn", () -> true);
+
+            // Welcome broadcast config
+            welcomeBroadcastEnabled = config.getBoolean("welcome-broadcast.enabled", () -> true);
+            welcomeBroadcastMessage = config.getString("welcome-broadcast.message", 
+                    () -> "&e%player% &6has joined the server for the first time!");
 
             // Teleport config
             teleportDelay = getIntSafe(config, "teleport.delay", DEFAULT_TELEPORT_DELAY);
@@ -397,6 +406,15 @@ public class ConfigManager {
 
     public boolean isDeathSpawnEnabled() {
         return deathSpawnEnabled;
+    }
+
+    public boolean isWelcomeBroadcastEnabled() {
+        return welcomeBroadcastEnabled;
+    }
+
+    @Nonnull
+    public String getWelcomeBroadcastMessage() {
+        return welcomeBroadcastMessage;
     }
 
     public int getTeleportDelay() {

@@ -21,6 +21,7 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.nhulston.essentials.managers.SpawnManager;
 import com.nhulston.essentials.models.Spawn;
+import com.nhulston.essentials.util.ColorUtil;
 import com.nhulston.essentials.util.ConfigManager;
 import com.nhulston.essentials.util.Log;
 import com.nhulston.essentials.util.StorageManager;
@@ -62,6 +63,13 @@ public class SpawnTeleportEvent {
             // Mark player as joined if this is their first time
             if (!hasJoined) {
                 storageManager.markPlayerJoined(uuid);
+                
+                // Broadcast welcome message for first-time players
+                if (configManager.isWelcomeBroadcastEnabled()) {
+                    String message = configManager.getWelcomeBroadcastMessage()
+                            .replace("%player%", playerRef.getUsername());
+                    Universe.get().sendMessage(ColorUtil.colorize(message));
+                }
             }
             
             // Check if we should teleport to spawn
