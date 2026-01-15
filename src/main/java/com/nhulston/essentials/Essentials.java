@@ -15,6 +15,7 @@ import com.nhulston.essentials.commands.kit.KitCommand;
 import com.nhulston.essentials.commands.list.ListCommand;
 import com.nhulston.essentials.commands.msg.MsgCommand;
 import com.nhulston.essentials.commands.msg.ReplyCommand;
+import com.nhulston.essentials.commands.repair.RepairCommand;
 import com.nhulston.essentials.commands.rtp.RtpCommand;
 import com.nhulston.essentials.commands.shout.ShoutCommand;
 import com.nhulston.essentials.commands.top.TopCommand;
@@ -54,7 +55,7 @@ import com.nhulston.essentials.util.VersionChecker;
 import javax.annotation.Nonnull;
 
 public class Essentials extends JavaPlugin {
-    public static final String VERSION = "1.4.1";
+    public static final String VERSION = "1.5.0";
     
     private static Essentials instance;
     
@@ -152,7 +153,7 @@ public class Essentials extends JavaPlugin {
         getCommandRegistry().registerCommand(new BackCommand(backManager, teleportManager));
 
         // RTP command
-        getCommandRegistry().registerCommand(new RtpCommand(configManager, teleportManager));
+        getCommandRegistry().registerCommand(new RtpCommand(configManager, storageManager, teleportManager));
 
         // List command
         getCommandRegistry().registerCommand(new ListCommand());
@@ -183,6 +184,9 @@ public class Essentials extends JavaPlugin {
 
         // Shout/broadcast command
         getCommandRegistry().registerCommand(new ShoutCommand(configManager));
+
+        // Repair command
+        getCommandRegistry().registerCommand(new RepairCommand(configManager, storageManager));
     }
 
     private void registerEvents() {

@@ -11,14 +11,15 @@ import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.nhulston.essentials.managers.TeleportManager;
+import com.nhulston.essentials.models.PlayerData;
 import com.nhulston.essentials.util.ConfigManager;
+import com.nhulston.essentials.util.CooldownUtil;
 import com.nhulston.essentials.util.Msg;
+import com.nhulston.essentials.util.StorageManager;
 import com.nhulston.essentials.util.TeleportUtil;
 
 import javax.annotation.Nonnull;
-import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -29,14 +30,15 @@ public class RtpCommand extends AbstractPlayerCommand {
     private static final int MAX_ATTEMPTS = 5;
     private static final String COOLDOWN_BYPASS_PERMISSION = "essentials.rtp.cooldown.bypass";
 
-    private static final Map<UUID, Long> cooldowns = new ConcurrentHashMap<>();
-
     private final ConfigManager configManager;
+    private final StorageManager storageManager;
     private final TeleportManager teleportManager;
 
-    public RtpCommand(@Nonnull ConfigManager configManager, @Nonnull TeleportManager teleportManager) {
+    public RtpCommand(@Nonnull ConfigManager configManager, @Nonnull StorageManager storageManager,
+                      @Nonnull TeleportManager teleportManager) {
         super("rtp", "Randomly teleport to a location");
         this.configManager = configManager;
+        this.storageManager = storageManager;
         this.teleportManager = teleportManager;
 
         requirePermission("essentials.rtp");
@@ -46,17 +48,18 @@ public class RtpCommand extends AbstractPlayerCommand {
     protected void execute(@Nonnull CommandContext context, @Nonnull Store<EntityStore> store,
                            @Nonnull Ref<EntityStore> ref, @Nonnull PlayerRef playerRef, @Nonnull World world) {
         UUID playerUuid = playerRef.getUuid();
+        PlayerData data = storageManager.getPlayerData(playerUuid);
 
         // Check cooldown (skip if player has bypass permission)
         int cooldownSeconds = configManager.getRtpCooldown();
         boolean bypassCooldown = PermissionsModule.get().hasPermission(playerUuid, COOLDOWN_BYPASS_PERMISSION);
         if (cooldownSeconds > 0 && !bypassCooldown) {
-            Long lastUse = cooldowns.get(playerUuid);
+            Long lastUse = data.getLastRtpTime();
             if (lastUse != null) {
                 long elapsed = (System.currentTimeMillis() - lastUse) / 1000;
                 long remaining = cooldownSeconds - elapsed;
                 if (remaining > 0) {
-                    Msg.fail(context, "RTP is on cooldown. Please wait " + remaining + " seconds.");
+                    Msg.fail(context, "RTP is on cooldown. " + CooldownUtil.formatCooldown(remaining) + " remaining.");
                     return;
                 }
             }
@@ -84,7 +87,8 @@ public class RtpCommand extends AbstractPlayerCommand {
             
             if (safeY != null) {
                 // Found a safe location - set cooldown
-                cooldowns.put(playerUuid, System.currentTimeMillis());
+                data.setLastRtpTime(System.currentTimeMillis());
+                storageManager.savePlayerData(playerUuid);
 
                 Vector3d startPosition = playerRef.getTransform().getPosition();
 
@@ -100,12 +104,5 @@ public class RtpCommand extends AbstractPlayerCommand {
 
         // All attempts failed
         Msg.fail(context, "Could not find a safe location after " + MAX_ATTEMPTS + " attempts. Try again.");
-    }
-
-    /**
-     * Cleans up cooldown for a player when they disconnect.
-     */
-    public static void onPlayerQuit(UUID playerUuid) {
-        cooldowns.remove(playerUuid);
     }
 }

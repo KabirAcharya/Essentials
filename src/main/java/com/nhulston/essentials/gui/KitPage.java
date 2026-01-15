@@ -23,6 +23,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.nhulston.essentials.managers.KitManager;
 import com.nhulston.essentials.models.Kit;
 import com.nhulston.essentials.models.KitItem;
+import com.nhulston.essentials.util.CooldownUtil;
 import com.nhulston.essentials.util.Msg;
 
 import javax.annotation.Nonnull;
@@ -71,7 +72,7 @@ public class KitPage extends InteractiveCustomUIPage<KitPage.KitPageData> {
             } else {
                 long remainingCooldown = kitManager.getRemainingCooldown(playerRef.getUuid(), kit.getId());
                 if (remainingCooldown > 0) {
-                    status = "Cooldown: " + KitManager.formatCooldown(remainingCooldown);
+                    status = "Cooldown: " + CooldownUtil.formatCooldown(remainingCooldown);
                 } else {
                     status = "Ready to claim";
                 }
@@ -113,7 +114,7 @@ public class KitPage extends InteractiveCustomUIPage<KitPage.KitPageData> {
         if (!canBypassCooldown) {
             long remainingCooldown = kitManager.getRemainingCooldown(playerRef.getUuid(), kit.getId());
             if (remainingCooldown > 0) {
-                Msg.fail(playerRef, "This kit is on cooldown. " + KitManager.formatCooldown(remainingCooldown) + " remaining.");
+                Msg.fail(playerRef, "This kit is on cooldown. " + CooldownUtil.formatCooldown(remainingCooldown) + " remaining.");
                 this.close();
                 return;
             }

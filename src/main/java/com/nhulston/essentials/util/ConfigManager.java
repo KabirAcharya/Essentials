@@ -87,6 +87,9 @@ public class ConfigManager {
     // Shout settings
     private String shoutPrefix = "&0[&7Broadcast&0] &f";
 
+    // Repair settings
+    private int repairCooldown = 43200;
+
     public ConfigManager(@Nonnull Path dataFolder) {
         this.configPath = dataFolder.resolve("config.toml");
         load();
@@ -191,6 +194,9 @@ public class ConfigManager {
 
             // Shout config
             shoutPrefix = config.getString("shout.prefix", () -> "&0[&7Broadcast&0] &f");
+
+            // Repair config
+            repairCooldown = getIntSafe(config, "repair.cooldown", 43200);
 
             Log.info("Config loaded!");
         } catch (Exception e) {
@@ -520,5 +526,9 @@ public class ConfigManager {
     @Nonnull
     public String getShoutPrefix() {
         return shoutPrefix;
+    }
+
+    public int getRepairCooldown() {
+        return repairCooldown;
     }
 }

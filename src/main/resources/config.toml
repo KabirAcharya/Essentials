@@ -127,3 +127,8 @@ cooldown = 300
 # Prefix prepended to all /shout messages
 # Color codes: &0-&9, &a-&f (hex colors like &#FF5555 also supported)
 prefix = "&0[&7Broadcast&0] &f"
+
+[repair]
+# Cooldown in seconds between /repair uses (0 to disable)
+# Default: 43200 (12 hours)
+cooldown = 43200

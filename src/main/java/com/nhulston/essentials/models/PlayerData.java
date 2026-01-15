@@ -8,6 +8,8 @@ import java.util.Map;
 public class PlayerData {
     private Map<String, Home> homes;
     private Map<String, Long> kitCooldowns;  // kitId -> lastUsedTimestamp
+    private Long lastRepairTime;
+    private Long lastRtpTime;
 
     public PlayerData() {
         this.homes = new HashMap<>();
@@ -62,6 +64,28 @@ public class PlayerData {
     public void setKitCooldown(@Nonnull String kitId, long timestamp) {
         ensureInitialized();
         kitCooldowns.put(kitId.toLowerCase(), timestamp);
+    }
+
+    // Repair cooldown methods
+
+    @Nullable
+    public Long getLastRepairTime() {
+        return lastRepairTime;
+    }
+
+    public void setLastRepairTime(long timestamp) {
+        this.lastRepairTime = timestamp;
+    }
+
+    // RTP cooldown methods
+
+    @Nullable
+    public Long getLastRtpTime() {
+        return lastRtpTime;
+    }
+
+    public void setLastRtpTime(long timestamp) {
+        this.lastRtpTime = timestamp;
     }
 
 }

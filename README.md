@@ -52,6 +52,7 @@ Essentials is an all-in-one utility plugin for Hytale server administrators.
 | <code>/top</code>               | Teleport to highest block        | <code>essentials.top</code>        |
 | <code>/essentials reload</code> | Reload configuration             | <code>essentials.reload</code>     |
 | <code>/shout</code>             | Broadcast message to all players | <code>essentials.shout</code>      |
+| <code>/repair</code>            | Repair the item in your hand     | <code>essentials.repair</code>     |
 
 # Permissions
 
@@ -62,40 +63,42 @@ If you have a permissions mod, follow the instructions for that mod.
 
 **NOTE**: Permissions are case sensitive!
 
-| Permission                                  | Description                                                                                 |
-|---------------------------------------------|---------------------------------------------------------------------------------------------|
-| <code>essentials.sethome</code>             | Set homes                                                                                   |
-| <code>essentials.home</code>                | Teleport to homes                                                                           |
-| <code>essentials.delhome</code>             | Delete homes                                                                                |
-| <code>essentials.homes.TIER</code>          | Home limit for tier (e.g., essentials.homes.vip). Configure tiers in config.toml            |
-| <code>essentials.setwarp</code>             | Create warps                                                                                |
-| <code>essentials.warp</code>                | Teleport to warps                                                                           |
-| <code>essentials.delwarp</code>             | Delete warps                                                                                |
-| <code>essentials.setspawn</code>            | Set server spawn                                                                            |
-| <code>essentials.spawn</code>               | Teleport to spawn                                                                           |
-| <code>essentials.tpa</code>                 | Send teleport requests                                                                      |
-| <code>essentials.tpaccept</code>            | Accept teleport requests                                                                    |
-| <code>essentials.build.bypass</code>        | Build when global building is disabled                                                      |
-| <code>essentials.spawn.bypass</code>        | Build in spawn protection area                                                              |
-| <code>essentials.kit</code>                 | Open kit selection GUI                                                                      |
-| <code>essentials.kit.kitname</code>         | Access to claim a specific kit. Kit names are case sensitive--they should be all lowercase! |
-| <code>essentials.kit.create</code>          | Create new kits                                                                             |
-| <code>essentials.kit.delete</code>          | Delete kits                                                                                 |
-| <code>essentials.kit.cooldown.bypass</code> | Bypass kit cooldowns                                                                        |
-| <code>essentials.teleport.bypass</code>     | Bypass teleport delay                                                                       |
-| <code>essentials.back</code>                | Teleport to last death location                                                             |
-| <code>essentials.rtp</code>                 | Random teleport                                                                             |
-| <code>essentials.rtp.cooldown.bypass</code> | Bypass RTP cooldown                                                                         |
-| <code>essentials.list</code>                | List online players                                                                         |
-| <code>essentials.heal</code>                | Restore health to full                                                                      |
-| <code>essentials.freecam</code>             | Toggle freecam mod                                                                          |
-| <code>essentials.god</code>                 | Toggle god mode (invincibility)                                                             |
-| <code>essentials.msg</code>                 | Send private messages and reply (aliases: /m, /message, /whisper, /pm, /r, /reply)          |
-| <code>essentials.tphere</code>              | Teleport players to you                                                                     |
-| <code>essentials.top</code>                 | Teleport to highest block                                                                   |
-| <code>essentials.reload</code>              | Reload configuration files                                                                  |
-| <code>essentials.chat.color</code>          | Use color codes in chat messages                                                            |
-| <code>essentials.shout</code>               | Broadcast messages to all players (aliases: /broadcast)                                     |
+| Permission                                     | Description                                                                                 |
+|------------------------------------------------|---------------------------------------------------------------------------------------------|
+| <code>essentials.sethome</code>                | Set homes                                                                                   |
+| <code>essentials.home</code>                   | Teleport to homes                                                                           |
+| <code>essentials.delhome</code>                | Delete homes                                                                                |
+| <code>essentials.homes.TIER</code>             | Home limit for tier (e.g., essentials.homes.vip). Configure tiers in config.toml            |
+| <code>essentials.setwarp</code>                | Create warps                                                                                |
+| <code>essentials.warp</code>                   | Teleport to warps                                                                           |
+| <code>essentials.delwarp</code>                | Delete warps                                                                                |
+| <code>essentials.setspawn</code>               | Set server spawn                                                                            |
+| <code>essentials.spawn</code>                  | Teleport to spawn                                                                           |
+| <code>essentials.tpa</code>                    | Send teleport requests                                                                      |
+| <code>essentials.tpaccept</code>               | Accept teleport requests                                                                    |
+| <code>essentials.build.bypass</code>           | Build when global building is disabled                                                      |
+| <code>essentials.spawn.bypass</code>           | Build in spawn protection area                                                              |
+| <code>essentials.kit</code>                    | Open kit selection GUI                                                                      |
+| <code>essentials.kit.kitname</code>            | Access to claim a specific kit. Kit names are case sensitive--they should be all lowercase! |
+| <code>essentials.kit.create</code>             | Create new kits                                                                             |
+| <code>essentials.kit.delete</code>             | Delete kits                                                                                 |
+| <code>essentials.kit.cooldown.bypass</code>    | Bypass kit cooldowns                                                                        |
+| <code>essentials.teleport.bypass</code>        | Bypass teleport delay                                                                       |
+| <code>essentials.back</code>                   | Teleport to last death location                                                             |
+| <code>essentials.rtp</code>                    | Random teleport                                                                             |
+| <code>essentials.rtp.cooldown.bypass</code>    | Bypass RTP cooldown                                                                         |
+| <code>essentials.list</code>                   | List online players                                                                         |
+| <code>essentials.heal</code>                   | Restore health to full                                                                      |
+| <code>essentials.freecam</code>                | Toggle freecam mod                                                                          |
+| <code>essentials.god</code>                    | Toggle god mode (invincibility)                                                             |
+| <code>essentials.msg</code>                    | Send private messages and reply (aliases: /m, /message, /whisper, /pm, /r, /reply)          |
+| <code>essentials.tphere</code>                 | Teleport players to you                                                                     |
+| <code>essentials.top</code>                    | Teleport to highest block                                                                   |
+| <code>essentials.reload</code>                 | Reload configuration files                                                                  |
+| <code>essentials.chat.color</code>             | Use color codes in chat messages                                                            |
+| <code>essentials.shout</code>                  | Broadcast messages to all players (aliases: /broadcast)                                     |
+| <code>essentials.repair</code>                 | Repair items (aliases: /fix)                                                                |
+| <code>essentials.repair.cooldown.bypass</code> | Bypass repair cooldown                                                                      |
 
 # Configuration
 
